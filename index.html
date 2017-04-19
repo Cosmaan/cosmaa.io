@@ -3,30 +3,55 @@
 <html>
     <head>
        <meta charset="utf-8">
-        <title>1</title>
+        <title>Game</title>
+        <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Changa+One" rel="stylesheet">
         <link rel="stylesheet" href="1.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
-
+        <script src="https://unpkg.com/tween.js@16.3.4"></script>
+        <script src="https://unpkg.com/color-js@1.0.3/color.js"></script>
     </head>
-
     <body>
         <div class="container" id="app">
-
-          <h1 class="text-primary">YOU HAVE {{timeSelect}} SECONDS!</h1>
-          <br>
-          <div class="row">
-            <h2 class="col-sm-4">Clicks: {{count}}</h2>
-            <h2 class="col-sm-4">Time: {{time}}</h2>
-          </div>
-          <div class="">
-            <button @click="restart" class="btn btn-danger">RETARD!</button>
-            <button @click="up" v-show="disableButton" class="btn btn-primary span-12">PRESS ME!</button>
-            <input v-show="disableInput" v-model="timeSelect" class="form-control col-md-4" type="number" placeholder="Chose seconds"/>
-          </div>
-            <div class="row">
-              <h1 class="col-sm-12 text-danger" v-show="record">YOUR SCORE {{this.count}}</h1>
+          <transition name="slider">
+            <div role="alert" v-if="badNumber" class="alert alert-danger">
+              <strong>Danger!</strong> You should use positive number.
             </div>
+          </transition>
+
+          <div class="text-center">
+            <h1 :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">LETS CLICK!</h1>
+            <div class="form-group">
+              <form class="text-center" v-show="disableInput" action="index.html" method="post">
+                <label  for="sec">Choose your time:</label>
+                <input id="sec"  v-model="timeSelect" class="mx-auto form-control col-md-2" type="number" placeholder="Chose your time"/>
+              </form>
+
+            </div>
+            <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RETARD!</button>
+          </div>
+
+          <div class="">
+            <div class="black">
+              <transition name="fade">
+                <h1 class="score text-center score col-sm-12 text-danger" v-if="record">YOUR SCORE:<br> {{this.count}}</h1>
+              </transition>
+              <transition name="fade-time">
+                <h2 class="score text-center score col-sm-12 text-info" v-if="record">for {{timeSelect}} sec</h2>
+              </transition>
+            </div>
+
+            <div class="mx-auto">
+              <transition name="press">
+                <div v-show="disableButton" class="text-center">
+                  <h2 class="recordStyle text-center col-sm-12">Clicks: {{count}}</h2>
+                  <h2 class="text-center col-sm-12">Time: {{time/100.0}}</h2>
+                  <button @click="up" class="btn btn-lg btn-primary mx-auto press">PRESS ME!</button>
+                </div>
+              </transition>
+            </div>
+          </div>
         </div>
     </body>
     <script src="main.js"></script>

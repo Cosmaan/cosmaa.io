@@ -1,13 +1,88 @@
-.sl {
-  background: #eee;
-}
-.ss {
-  background: #e3e3e3;
-}
 .recordStyle {
-  font-size: 20px;
-  color: red;
+  margin-top: 10px;
 }
-.input {
-  width: 10px;
+.you-have {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  font-family: 'Passion One', cursive;
+}
+
+.col-sm-12 {
+  font-family: 'Passion One', cursive;
+}
+label, h1, h2, h3, h4 {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+.top {
+  color: #black;
+  font-size: 50px;
+  font-family: 'Passion One', cursive;
+}
+/* appearing PRESS */
+.press {
+  width: 200px;
+  height: 150px;
+}
+.press-enter-active {
+  transition: all .3s ease;
+}
+.press-leave-active {
+  opacity: 0;
+}
+.press-enter, .slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+/* appearing SCORE */
+.score {
+  margin-top: 10px;
+}
+.fade-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-leave-active {
+  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-enter, .slide-fade-leave-to  {
+  transform: translateY(-10%);
+  opacity: 0;
+}
+
+/* appearing TIME */
+.fade-time-enter-active {
+  transition: all 0.4s ease;
+}
+.fade-time-leave-active {
+  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-time-enter, .slide-fade-leave-to  {
+  transform: translateY(-10%);
+  opacity: 0;
+}
+
+/* appearing ALERT */
+.alert {
+  width: 100%;
+  position: absolute;
+  z-index: 999;
+}
+.slider-enter-active {
+  transition: all 0.3s ease;
+}
+.slider-leave-active {
+  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slider-enter, .slide-fade-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.form-group {
+  height: 70px;
 }
