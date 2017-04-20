@@ -1,3 +1,31 @@
+
+(function() {
+
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCal7Z0k-uFVLaQiSDlsd-XgwQ6G_ovVwc",
+    authDomain: "cosmaan-game.firebaseapp.com",
+    databaseURL: "https://cosmaan-game.firebaseio.com",
+    projectId: "cosmaan-game",
+    storageBucket: "cosmaan-game.appspot.com",
+    messagingSenderId: "562207389623"
+  };
+  firebase.initializeApp(config);
+
+  // Get a reference to the database service
+  //var database = firebase.database();
+// Initialize Firebase
+
+const preObject = document.getElementById('object');
+
+const dbRefObject = firebase.database().ref().child('object');
+
+dbRefObject.on('value', snap => console.log(snap.val()));
+
+//console.log('ebat', dbRefObject)
+
+}());
+
 function restart() {
   this.count = 0;
   this.time = 0;
