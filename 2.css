@@ -1,0 +1,30 @@
+/* appearing ALERT */
+.alert {
+  width: 100%;
+  position: absolute;
+  z-index: 999;
+}
+.slider-enter-active {
+  transition: all 0.2s ease;
+}
+.slider-leave-active {
+  transition: all 0.2s ease;
+}
+.slider-enter, .slider-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.form-group {
+  height: 70px;
+}
+.top {
+  margin-top: 50px;
+}
+
+btn {
+  margin: 10px;
+}
+.list-group-item {
+  display: list-item;
+  list-style: decimal inside;
+}
