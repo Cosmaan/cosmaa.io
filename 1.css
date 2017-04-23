@@ -1,3 +1,7 @@
+body {
+  overflow-y:hidden;
+}
+
 .recordStyle {
   margin-top: 10px;
 }
@@ -5,15 +9,20 @@
   margin-top: 30px;
   margin-bottom: 10px;
 }
-
+.playBtn {
+  font-size: 30px;
+  width: 150px;
+  height: 60px;
+}
+.alert {
+  position: absolute;
+  z-index: 999;
+}
 .btn {
-  font-family: 'Passion One', cursive;
+  margin: 30px;
 }
-
-.col-sm-12 {
+label, h1, h2, h3, h4, .btn {
   font-family: 'Passion One', cursive;
-}
-label, h1, h2, h3, h4 {
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
@@ -24,65 +33,68 @@ label, h1, h2, h3, h4 {
   font-size: 50px;
   font-family: 'Passion One', cursive;
 }
+
+
+.playPage-enter-active, .playPage-leave-active {
+  transition: all .3s ease;
+}
+
+.playPage-enter, .playPage-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+
+.playPage-LEAVE {
+  width: 200px;
+  height: 150px;
+}
+.playPage-LEAVE-enter-active, .playPage-LEAVE-leave-active {
+  transition: all .3s ease;
+}
+
+.playPage-LEAVE-enter, .playPage-LEAVE-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+
 /* appearing PRESS */
 .press {
   width: 200px;
   height: 150px;
 }
-.press-enter-active {
+.press-enter-active, .press-leave-active {
   transition: all .3s ease;
 }
-.press-leave-active {
+
+.press-enter, .press-leave-to {
   opacity: 0;
 }
-.press-enter, .slide-fade-leave-to {
-  transform: translateY(10px);
+
+/* appearing scoreBoard */
+.scoreBoard-enter-active, .scoreBoard-leave-active {
+  transition: all .3s ease;
+}
+.scoreBoard-enter, .scoreBoard-leave-to {
+  transform: translateY(100px);
   opacity: 0;
 }
 
 /* appearing SCORE */
-.score {
-  margin-top: 10px;
+.fade {
+  width: 200px;
+  height: 150px;
 }
-.fade-enter-active {
-  transition: all 0.3s ease;
+.fade-enter-active, .fade-leave-active {
+  transition: all .3s;
 }
-.fade-leave-active {
-  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.fade-enter, .slide-fade-leave-to  {
-  transform: translateY(-10%);
-  opacity: 0;
-}
-
-/* appearing TIME */
-.fade-time-enter-active {
-  transition: all 0.4s ease;
-}
-.fade-time-leave-active {
-  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.fade-time-enter, .slide-fade-leave-to  {
-  transform: translateY(-10%);
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
 /* appearing ALERT */
-.alert {
-  width: 100%;
-  position: absolute;
-  z-index: 999;
-}
-.slider-enter-active {
-  transition: all 0.3s ease;
-}
-.slider-leave-active {
-  transition: all 0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slider-enter, .slide-fade-leave-to {
-  transform: translateY(-100%);
-  opacity: 0;
-}
+
 .form-group {
   height: 70px;
 }

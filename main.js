@@ -1,12 +1,32 @@
+//Input Filter
+Vue.directive("filter", {
+  bind: function(el, binding) {
+    this.inputHandler = function(e) {
+      var ch = String.fromCharCode(e.which);
+      var re = new RegExp(binding.value);
+      if (!ch.match(re)) {
+        e.preventDefault();
+      }
+    };
+    el.addEventListener("keypress", this.inputHandler);
+  },
+  unbind: function(el) {
+    el.removeEventListener("keypress", this.inputHandler);
+  },
+  inputHandler: null
+});
+
 //Restart score and time
 function restart() {
-  this.count = 0;
-  this.time = 0;
+  this.score = 0;
+  this.time = 500;
   this.disableButton = true;
   this.record = false;
   this.disableInput = true;
+  this.showBoard = false;
   clearTimeout(this.timerID);
-  this.badNumber = false;
+  this.alertAppeare = false;
+
 }
 
 //Generate color
@@ -26,6 +46,20 @@ function timer() {
     this.record = true;
     this.disableButton = false;
     clearTimeout(this.timerID);
+    //Open + Reload ScoreBoard (sb)
+    firebase.database().ref('users/'+this.nickName).set(this.score);
+    this.scoreBoard = [];
+    let sb = this.scoreBoard;
+    reffer.orderByValue().limitToLast(50).once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let currentNick = childSnapshot.key;
+        let currentScore = childSnapshot.val();
+        sb.push([currentNick, currentScore]);
+      });
+      sb.reverse();
+    });
+    //Open + Reload ScoreBoard (sb)
+    this.showBoard = true;
     return;
   }
 }
@@ -37,14 +71,15 @@ function clickUp() {
   //console.log(this.tweenedCSSColor);
   this.disableInput = false;
   if (this.timeSelect <= 0) {
-    this.badNumber = true;
+    this.errorMessage = 'You can\'t click at 0 seconds';
+    this.alertAppeare = true;
     return;
   }
-  if (this.count == 0) {
+  if (this.score == 0) {
     this.timerID = setInterval(this.timer, 100);
   }
-  this.count += 1;
-  if (this.count == 1) {
+  this.score += 1;
+  if (this.score == 1) {
     this.time = this.timeSelect*100;
 
   }
@@ -53,29 +88,29 @@ function clickUp() {
  var appMain = new Vue({
             el: '#main',
             data: {
-                translate: '',
-                transX: '',
-                transY: '',
-                CSSColor: '',
-                count: 0,
-                time: 0,
-                timerID: 0,
-                timeSelect: 1,
-                record: false,
-                disableButton: true,
-                disableInput: true,
-                badNumber: false,
-                score: 0,
-                nickName: '',
-                errorMessage: '',
-                showBoard: true,
-                scoreBoard: [],
+              clickPage: false,
+              translate: '',
+              transX: '',
+              transY: '',
+              CSSColor: '',
+              time: 500,
+              timerID: 0,
+              timeSelect: 5,
+              record: false,
+              alertAppeare: false,
+              disableButton: true,
+              disableInput: true,
+              score: 0,
+              nickName: '',
+              errorMessage: '',
+              showBoard: false,
+              scoreBoard: [],
             },
             methods: {
               play: play,
               osb: osb,
-                restart: restart,
-                timer: timer,
-                clickUp: clickUp,
-          }
+              restart: restart,
+              timer: timer,
+              clickUp: clickUp,
+            }
         })

@@ -14,15 +14,22 @@ const reffer = firebase.database().ref('users');
 
 //Login
 function play() {
-    if (this.nickName == '') {
-      this.errorMessage = 'Invalid nick';
-      this.alertAppeare = true;
+    if (this.nickName.length >= 15) {
+      this.errorMessage = 'Nick must be less then 15 symbols!';
+      this.alertAppeare = true
+      return;
+    }
+    else if (this.nickName.length == 0) {
+      this.errorMessage = 'Nick can\'t be empty!';
+      this.alertAppeare = true
       return;
     }
     else {
       this.alertAppeare = false;
     }
-    firebase.database().ref('users/'+this.nickName).set(this.score);
+
+    this.clickPage = true
+    //firebase.database().ref('users/'+this.nickName).set(this.score);
 }
 
 //Open + Reload ScoreBoard (sb)
@@ -38,22 +45,3 @@ function osb() {
     sb.reverse();
   });
 }
-
-
-//Input Filter
-Vue.directive("filter", {
-  bind: function(el, binding) {
-    this.inputHandler = function(e) {
-      var ch = String.fromCharCode(e.which);
-      var re = new RegExp(binding.value);
-      if (!ch.match(re)) {
-        e.preventDefault();
-      }
-    };
-    el.addEventListener("keypress", this.inputHandler);
-  },
-  unbind: function(el) {
-    el.removeEventListener("keypress", this.inputHandler);
-  },
-  inputHandler: null
-});

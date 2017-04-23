@@ -19,64 +19,47 @@
         <script src="https://unpkg.com/color-js@1.0.3/color.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
         <link rel="stylesheet" href="1.css">
-        <link rel="stylesheet" href="2.css">
     </head>
     <body>
-        <div class="container" id="main">
-          <transition name="slider">
-            <div role="alert" v-if="badNumber" class="alert alert-danger">
-              <strong>Danger!</strong> You should use positive number.
+        <div class="wrapper container" id="main">
+          <!-- alert -->
+            <div v-if="alertAppeare" class="alert alert-danger" role="alert" style="z-index: 999;">
+              <button @click="alertAppeare = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{errorMessage}}
             </div>
-          </transition>
 
-          <div class="text-center">
-            <h1 :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">LETS CLICK!</h1>
-            <div class="form-group">
-              <form class="text-center" v-show="disableInput" action="index.html" method="post">
-                <label  for="sec">Choose your time:</label>
-                <input id="sec"  v-model="timeSelect" class="mx-auto form-control col-md-2" type="number" placeholder="Chose your time"/>
-              </form>
-            </div>
+
+          <div v-if="clickPage" class="text-center">
+            <h1 :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">{{nickName}}! You have only {{time/100.0}} seconds!</h1>
             <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RETARD!</button>
           </div>
-
-          <div class="">
-            <div class="black">
-              <transition name="fade">
-                <h1 class="score text-center score col-sm-12 text-danger" v-if="record">YOUR SCORE:<br> {{this.count}}</h1>
-              </transition>
-              <transition name="fade-time">
-                <h2 class="score text-center score col-sm-12 text-info" v-if="record">for {{timeSelect}} sec</h2>
-              </transition>
-            </div>
-
-            <div class="mx-auto">
-              <transition name="press">
-                <div v-if="disableButton" class="text-center">
-                  <h2 class="recordStyle text-center col-sm-12">Clicks: {{count}}</h2>
-                  <h2 class="text-center col-sm-12">Time: {{time/100.0}}</h2>
-                  <button @click="clickUp" class="btn btn-lg btn-primary mx-auto press">PRESS ME!</button>
+            <div v-if="clickPage" class="">
+                <div v-if="record" class="black">
+                  <h1 class="score text-center score col-sm-12 text-danger">YOUR SCORE:<br> {{this.score}}</h1>
                 </div>
-              </transition>
-            </div>
-            <div class="">
 
+              <div class="mx-auto">
+                  <div v-if="disableButton" class="text-center">
+                    <h2 class="top recordStyle text-center col-sm-12">Clicks: {{score}}</h2>
+                    <button @click="clickUp" class="btn btn-lg btn-primary mx-auto press">PRESS ME!</button>
+                  </div>
+              </div>
             </div>
-          </div>
-
+          <!-- Play -->
+            <div v-if="!clickPage">
+              <div class="container text-center">
+                <h1 class="top you-have">Welcome to 5 seconds challenge!</h1>
+                <input v-filter="'[a-zA-Z]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick">
+                <button @click="play" type="button" class="playBtn btn btn-success">Play</button>
+              </div>
+            </div>
+          <!-- Play -->
           <!-- Scoreboard -->
-          <transition name="fade">
-          <div  class="container col-6">
-            <!-- Play -->
-            <div class="text-center form-group">
-              <label for="exampleInputEmail1"></label>
-              <input v-filter="'[a-zA-Z]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick">
-            </div>
-            <div class="text-center form-group">
-              <button @click="play" type="button" class="btn btn-primary">Play</button>
-            </div>
-            <!-- Play -->
-            <button @click="osb" type="button" class="btn btn-primary">Reload</button>
+          <transition name="scoreBoard">
+          <div v-if="showBoard" class="container col-6">
+        <!--    <button @click="osb" type="button" class="btn btn-primary">Reload</button> -->
             <table class="table-bordered table-striped table">
               <thead class="thead-inverse">
                 <tr>
