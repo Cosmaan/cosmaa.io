@@ -22,43 +22,48 @@
     </head>
     <body>
         <div class="wrapper container" id="main">
-          <!-- alert -->
-            <div v-if="alertAppeare" class="alert alert-danger" role="alert" style="z-index: 999;">
-              <button @click="alertAppeare = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              {{errorMessage}}
-            </div>
 
-
-          <div v-if="clickPage" class="text-center">
-            <h1 :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">{{nickName}}! You have only {{time/100.0}} seconds!</h1>
-            <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RETARD!</button>
-          </div>
-            <div v-if="clickPage" class="">
-                <div v-if="record" class="black">
-                  <h1 class="score text-center score col-sm-12 text-danger">YOUR SCORE:<br> {{this.score}}</h1>
-                </div>
-
-              <div class="mx-auto">
-                  <div v-if="disableButton" class="text-center">
-                    <h2 class="top recordStyle text-center col-sm-12">Clicks: {{score}}</h2>
-                    <button @click="clickUp" class="btn btn-lg btn-primary mx-auto press">PRESS ME!</button>
+            <div class="col">
+              <!-- alert -->
+                <transition name="showAlert" mode="out-in">
+                  <div v-if="alertAppeare" class="alert alert-danger col-12" role="alert">
+                    <button @click="alertAppeare = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{errorMessage}}
                   </div>
-              </div>
-            </div>
-          <!-- Play -->
-            <div v-if="!clickPage">
-              <div class="container text-center">
-                <h1 class="top you-have">Welcome to 5 seconds challenge!</h1>
-                <input v-filter="'[a-zA-Z]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick">
-                <button @click="play" type="button" class="playBtn btn btn-success">Play</button>
-              </div>
-            </div>
-          <!-- Play -->
-          <!-- Scoreboard -->
+                </transition>
+              <!-- alert -->
+              <transition name="playPage" mode="out-in">
+                <div v-if="clickPage" key="firstPage" id="playGroup"  class="text-center">
+                  <h1 v-if="!record" :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">{{nickName}}! You have only {{time/100.0}} seconds!</h1>
+                  <h1 v-if="record" :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">TIMEOUT!</h1>
+                  <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RETARD!</button>
+                  <transition name="fade" mode="out-in">
+                    <div v-if="record" key="rec" class="black">
+                      <h1 class="yourScore text-center col-sm-12 text-danger">YOUR SCORE:<br> {{this.score}}</h1>
+                    </div>
+                    <div v-if="!record" key="ckick" class="text-center">
+                      <h2 class="clickStyle text-center col-sm-12">Clicks: {{score}}</h2>
+                      <button @click="clickUp" aria-disabled="disablePress" class="btn btn-lg btn-primary mx-auto press">PRESS ME!</button>
+                    </div>
+                  </transition>
+                </div>
+              <!-- Play -->
+                <div v-if="!clickPage" key="mainPage">
+                  <div class="container text-center">
+                    <h1 class="top you-have">Welcome to 5 seconds challenge!</h1>
+                    <input v-filter="'[a-zA-Z0-9]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick">
+                    <button @click="play" type="button" :disabled="disablePlay" class="playBtn btn btn-success">Play</button>
+                  </div>
+                </div>
+              </transition>
+            <!-- Play -->
+          </div>
+        <!-- Scoreboard -->
           <transition name="scoreBoard">
           <div v-if="showBoard" class="container col-6">
+            <h1 class="scoreBoardLAbel text-center col-sm-12">EPIC SCOREBOARD</h1>
         <!--    <button @click="osb" type="button" class="btn btn-primary">Reload</button> -->
             <table class="table-bordered table-striped table">
               <thead class="thead-inverse">

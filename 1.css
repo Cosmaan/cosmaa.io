@@ -1,5 +1,10 @@
 body {
-  overflow-y:hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.black {
+  height: 250px;
 }
 
 .recordStyle {
@@ -33,51 +38,45 @@ label, h1, h2, h3, h4, .btn {
   font-size: 50px;
   font-family: 'Passion One', cursive;
 }
+.yourScore {
+  margin-top: 50px;
+  color: #black;
+  font-size: 50px;
+  font-family: 'Passion One', cursive;
+}
 
-
+.clickStyle {
+  color: #black;
+  font-size: 50px;
+  font-family: 'Passion One', cursive;
+}
+/* Page change */
 .playPage-enter-active, .playPage-leave-active {
   transition: all .3s ease;
 }
-
 .playPage-enter, .playPage-leave-to {
-  transform: translateX(100%);
+  transform: translateY(10%);
   opacity: 0;
 }
 
 
-.playPage-LEAVE {
-  width: 200px;
-  height: 150px;
+#playGroup {
+  height: 400px;
 }
-.playPage-LEAVE-enter-active, .playPage-LEAVE-leave-active {
-  transition: all .3s ease;
-}
-
-.playPage-LEAVE-enter, .playPage-LEAVE-leave-to {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
 
 /* appearing PRESS */
 .press {
+  font-size: 25px;
   width: 200px;
-  height: 150px;
-}
-.press-enter-active, .press-leave-active {
-  transition: all .3s ease;
-}
-
-.press-enter, .press-leave-to {
-  opacity: 0;
+  height: 150px
 }
 
 /* appearing scoreBoard */
 .scoreBoard-enter-active, .scoreBoard-leave-active {
-  transition: all .3s ease;
+  transition: all .6s ease;
 }
 .scoreBoard-enter, .scoreBoard-leave-to {
-  transform: translateY(100px);
+  transform: translateY(50px);
   opacity: 0;
 }
 
@@ -87,13 +86,23 @@ label, h1, h2, h3, h4, .btn {
   height: 150px;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: all .3s;
+  transition: all .2s ease;
 }
 .fade-enter, .fade-leave-to {
+  transform: translateY(100px);
   opacity: 0;
 }
 
 /* appearing ALERT */
+.showAlert-enter-active, .showAlert-leave-active {
+  transition: all .3s;
+}
+.showAlert-enter, .showAlert-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+
 
 .form-group {
   height: 70px;

@@ -20,9 +20,9 @@ function play() {
       return;
     }
     else if (this.nickName.length == 0) {
-      this.errorMessage = 'Nick can\'t be empty!';
-      this.alertAppeare = true
-      return;
+      this.errorMessage = 'Nick can not be empty!';
+    //  this.alertAppeare = true;
+    //  return;
     }
     else {
       this.alertAppeare = false;
@@ -33,10 +33,9 @@ function play() {
 }
 
 //Open + Reload ScoreBoard (sb)
-function osb() {
-  this.scoreBoard = [];
-  let sb = this.scoreBoard;
-  reffer.orderByValue().limitToLast(50).once('value', function(snapshot) {
+function osb(scoreBoard) {
+  let sb = scoreBoard;
+  reffer.orderByValue().limitToLast(20).once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       let currentNick = childSnapshot.key;
       let currentScore = childSnapshot.val();

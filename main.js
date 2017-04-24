@@ -18,11 +18,10 @@ Vue.directive("filter", {
 
 //Restart score and time
 function restart() {
+  this.disablePress = false;
   this.score = 0;
   this.time = 500;
-  this.disableButton = true;
   this.record = false;
-  this.disableInput = true;
   this.showBoard = false;
   clearTimeout(this.timerID);
   this.alertAppeare = false;
@@ -43,21 +42,13 @@ function timer() {
   this.translate = 'translate(' + this.transX + 'px, ' + this.transY + 'px)';
   this.time -= 10;
   if (this.time <= 0) {
+    this.disablePress = true;
     this.record = true;
-    this.disableButton = false;
     clearTimeout(this.timerID);
     //Open + Reload ScoreBoard (sb)
     firebase.database().ref('users/'+this.nickName).set(this.score);
     this.scoreBoard = [];
-    let sb = this.scoreBoard;
-    reffer.orderByValue().limitToLast(50).once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        let currentNick = childSnapshot.key;
-        let currentScore = childSnapshot.val();
-        sb.push([currentNick, currentScore]);
-      });
-      sb.reverse();
-    });
+    osb(this.scoreBoard);
     //Open + Reload ScoreBoard (sb)
     this.showBoard = true;
     return;
@@ -69,11 +60,8 @@ function clickUp() {
   this.transDeg = 'rotate(' + String( Math.floor(Math.random() * (10 - 1)) + 1) + 'deg)';
   this.CSSColor = getColor();
   //console.log(this.tweenedCSSColor);
-  this.disableInput = false;
-  if (this.timeSelect <= 0) {
-    this.errorMessage = 'You can\'t click at 0 seconds';
-    this.alertAppeare = true;
-    return;
+  if (this.time <= 0) {
+    return
   }
   if (this.score == 0) {
     this.timerID = setInterval(this.timer, 100);
@@ -81,6 +69,12 @@ function clickUp() {
   this.score += 1;
   if (this.score == 1) {
     this.time = this.timeSelect*100;
+  if (this.timeSelect <= 0) {
+    this.errorMessage = 'You can\'t click at 0 seconds';
+    this.alertAppeare = true;
+    return;
+  }
+
 
   }
 }
@@ -88,6 +82,8 @@ function clickUp() {
  var appMain = new Vue({
             el: '#main',
             data: {
+              disablePress: false,
+              disablePlay: false,
               clickPage: false,
               translate: '',
               transX: '',
@@ -98,10 +94,8 @@ function clickUp() {
               timeSelect: 5,
               record: false,
               alertAppeare: false,
-              disableButton: true,
-              disableInput: true,
               score: 0,
-              nickName: '',
+              nickName: 'me',
               errorMessage: '',
               showBoard: false,
               scoreBoard: [],
