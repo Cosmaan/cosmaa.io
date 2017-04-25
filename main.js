@@ -46,6 +46,9 @@ function timer() {
     this.record = true;
     clearTimeout(this.timerID);
     //Open + Reload ScoreBoard (sb)
+    if (this.nickName == '') {
+      this.nickName = 'noname';
+    }
     firebase.database().ref('users/'+this.nickName).set(this.score);
     this.scoreBoard = [];
     osb(this.scoreBoard);
@@ -59,7 +62,6 @@ function timer() {
 function clickUp() {
   this.transDeg = 'rotate(' + String( Math.floor(Math.random() * (10 - 1)) + 1) + 'deg)';
   this.CSSColor = getColor();
-  //console.log(this.tweenedCSSColor);
   if (this.time <= 0) {
     return
   }
@@ -74,8 +76,6 @@ function clickUp() {
     this.alertAppeare = true;
     return;
   }
-
-
   }
 }
 
@@ -95,7 +95,7 @@ function clickUp() {
               record: false,
               alertAppeare: false,
               score: 0,
-              nickName: 'me',
+              nickName: '',
               errorMessage: '',
               showBoard: false,
               scoreBoard: [],

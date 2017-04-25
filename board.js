@@ -21,15 +21,15 @@ function play() {
     }
     else if (this.nickName.length == 0) {
       this.errorMessage = 'Nick can not be empty!';
-    //  this.alertAppeare = true;
-    //  return;
+      this.alertAppeare = true;
+      return;
     }
     else {
       this.alertAppeare = false;
     }
+    console.log(firebase.database().ref('users'));
 
     this.clickPage = true
-    //firebase.database().ref('users/'+this.nickName).set(this.score);
 }
 
 //Open + Reload ScoreBoard (sb)

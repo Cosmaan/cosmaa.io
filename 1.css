@@ -1,12 +1,11 @@
 body {
+  background-color: #fafafa;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-
 .black {
   height: 250px;
 }
-
 .recordStyle {
   margin-top: 10px;
 }
@@ -32,7 +31,6 @@ label, h1, h2, h3, h4, .btn {
   -khtml-user-select: none;
   user-select: none;
 }
-
 .top {
   color: #black;
   font-size: 50px;
@@ -41,10 +39,9 @@ label, h1, h2, h3, h4, .btn {
 .yourScore {
   margin-top: 50px;
   color: #black;
-  font-size: 50px;
+  font-size: 60px;
   font-family: 'Passion One', cursive;
 }
-
 .clickStyle {
   color: #black;
   font-size: 50px;
@@ -58,19 +55,15 @@ label, h1, h2, h3, h4, .btn {
   transform: translateY(10%);
   opacity: 0;
 }
-
-
 #playGroup {
   height: 400px;
 }
-
 /* appearing PRESS */
 .press {
   font-size: 25px;
   width: 200px;
   height: 150px
 }
-
 /* appearing scoreBoard */
 .scoreBoard-enter-active, .scoreBoard-leave-active {
   transition: all .6s ease;
@@ -79,7 +72,6 @@ label, h1, h2, h3, h4, .btn {
   transform: translateY(50px);
   opacity: 0;
 }
-
 /* appearing SCORE */
 .fade {
   width: 200px;
@@ -92,7 +84,6 @@ label, h1, h2, h3, h4, .btn {
   transform: translateY(100px);
   opacity: 0;
 }
-
 /* appearing ALERT */
 .showAlert-enter-active, .showAlert-leave-active {
   transition: all .3s;
@@ -101,9 +92,6 @@ label, h1, h2, h3, h4, .btn {
   transform: translateY(-100%);
   opacity: 0;
 }
-
-
-
 .form-group {
   height: 70px;
 }

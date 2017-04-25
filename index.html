@@ -22,7 +22,6 @@
     </head>
     <body>
         <div class="wrapper container" id="main">
-
             <div class="col">
               <!-- alert -->
                 <transition name="showAlert" mode="out-in">
@@ -38,7 +37,7 @@
                 <div v-if="clickPage" key="firstPage" id="playGroup"  class="text-center">
                   <h1 v-if="!record" :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">{{nickName}}! You have only {{time/100.0}} seconds!</h1>
                   <h1 v-if="record" :style="{ color: CSSColor, transform: translate }" class="top text-center col-sm-12 you-have">TIMEOUT!</h1>
-                  <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RETARD!</button>
+                  <button @click="restart" class="btn btn-lg btn-danger col-md-offset-5">RESTART!</button>
                   <transition name="fade" mode="out-in">
                     <div v-if="record" key="rec" class="black">
                       <h1 class="yourScore text-center col-sm-12 text-danger">YOUR SCORE:<br> {{this.score}}</h1>
@@ -52,19 +51,18 @@
               <!-- Play -->
                 <div v-if="!clickPage" key="mainPage">
                   <div class="container text-center">
-                    <h1 class="top you-have">Welcome to 5 seconds challenge!</h1>
-                    <input v-filter="'[a-zA-Z0-9]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick">
+                    <h1 class="top you-have text-danger">Yo! Welcome to 5 seconds click challenge!</h1>
+                    <input v-filter="'[a-zA-Z0-9]'" v-model="nickName" type="text" class="topInput mx-auto form-control col-3" placeholder="Your nick (english)">
                     <button @click="play" type="button" :disabled="disablePlay" class="playBtn btn btn-success">Play</button>
                   </div>
                 </div>
               </transition>
             <!-- Play -->
-          </div>
+            </div>
         <!-- Scoreboard -->
-          <transition name="scoreBoard">
+        <transition name="scoreBoard">
           <div v-if="showBoard" class="container col-6">
             <h1 class="scoreBoardLAbel text-center col-sm-12">EPIC SCOREBOARD</h1>
-        <!--    <button @click="osb" type="button" class="btn btn-primary">Reload</button> -->
             <table class="table-bordered table-striped table">
               <thead class="thead-inverse">
                 <tr>
@@ -74,21 +72,18 @@
                 </tr>
               </thead>
               <tbody class="table-striped">
-                <template >
                 <tr v-for="(data, index) in scoreBoard">
                   <th scope="col-1 row">{{index+1}}</th>
                   <td class="col-1">{{data[0]}}</td>
                   <td class="col-1">{{data[1]}}</td>
                 </tr>
-                </template>
               </tbody>
             </table>
           </div>
         </transition>
-          <!-- Scoreboard -->
+        <!-- Scoreboard -->
         </div>
     </body>
     <script src="board.js"></script>
     <script src="main.js"></script>
-
 </html>
